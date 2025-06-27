@@ -95,7 +95,7 @@ To train the Random Forest model for popularity prediction:
 ```bash
 python scripts/train_rf_model.py
 ```
-This script will load the cleaned data, train a RandomForestRegressor, evaluate its performance, and save the trained model to outputs/models/random_forest_model.joblib. It also logs its progress to logs/rf_training.log.
+This script will load the cleaned data, train a RandomForestRegressor, get the feature importances, and save it to data/feature_importances.csv. It also logs its progress to logs/data_processing_rf_training.log.
 
 ### Running the Dashboard
 To launch the interactive Streamlit dashboard:
