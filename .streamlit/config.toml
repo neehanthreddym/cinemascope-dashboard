@@ -1,0 +1,10 @@
+# .streamlit/config.toml
+[theme]
+base="light"
+
+[browser]
+# Set the initial layout of the app
+layout="wide"
+
+# Set the initial state of the sidebar ('auto', 'expanded', or 'collapsed')
+initialSidebarState="expanded"
