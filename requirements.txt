@@ -1,0 +1,11 @@
+pandas
+matplotlib
+seaborn
+jupyter
+scikit-learn
+streamlit
+plotly
+python-dotenv
+aiohttp
+tqdm
+pycountry

@@ -1,0 +1,11 @@
+__pycache__/
+*.py[cod]
+*.ipynb_checkpoints
+notebooks/movies_df_cleaned.csv
+logs/
+*.log
+.env
+env/
+.vscode/
+.idea/
+.DS_Store
