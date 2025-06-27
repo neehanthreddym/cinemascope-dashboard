@@ -126,4 +126,5 @@ As this is a basic dashboard built with `streamlit` and `plotly`, Contributions 
 
 ## Contact
 Neehanth Reddy M - [Github Profile](https://github.com/neehanthreddym) [LinkedIn](https://www.linkedin.com/in/neehanthreddy/) [Email](mailto:neehanthreddym@gmail.com)
-Project Link: https://github.com/neehanthreddym/cinemascope-dashboard
+
+Web Application: [cinemascope-dashboard](https://cinemascope-trends.streamlit.app/)
