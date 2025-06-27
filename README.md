@@ -51,7 +51,7 @@ Trending-Movies-EDA/
 Follow these steps to set up and run the project locally.
 
 ### Prerequisites
-* Python 3.8+
+* Python 3.12.5
 * A TMDB API Key. You can get one by registering at [TMDB Developers](https://www.themoviedb.org/documentation/api).
 
 ### Installation
