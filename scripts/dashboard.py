@@ -275,8 +275,12 @@ st.markdown("---")
 st.markdown("Data Source: TMDB API")
 st.markdown("Built with Streamlit and Plotly")
 st.markdown(
-    "<div style='text-align: center; color: gray; font-size: 0.9em;'>"
-    "© 2025 Neehanth Reddy. All rights reserved."
-    "</div>",
+    """
+    <div style='text-align: center; color: gray; font-size: 0.9em;'>
+        © 2025 Neehanth Reddy. All rights reserved.<br>
+        <a href='https://github.com/neehanthreddym/cinemascope-dashboard' target='_blank' style='margin-right: 20px;'>GitHub Repo</a>
+        <a href='https://www.linkedin.com/in/neehanthreddy/' target='_blank'>LinkedIn</a>
+    </div>
+    """,
     unsafe_allow_html=True
 )
