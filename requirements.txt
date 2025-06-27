@@ -8,4 +8,4 @@ plotly==5.24.1
 python-dotenv==1.1.1
 aiohttp==3.12.12
 tqdm==4.66.5
-pycountry==24.6.2
+pycountry
