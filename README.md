@@ -1,18 +1,18 @@
 # 🎬 CinemaScope: Evolving Movie Trends (1990–2025)
 
 ## Table of Contents
-* About the Project
-* Project Structure
-* Getting Started
-    - Prerequisites
-    - Installation
-    - Data Collection
-    - Running the Dashboard
-    - Training the ML Model
-* Usage
-* Data Source
-* Contributing
-* Contact
+* [About the Project](about-the-project)
+* [Project Structure](project-structure)
+* [Getting Started](getting-started)
+    - [Prerequisites](prerequisites)
+    - [Installation](installation)
+    - [Data Collection](data-collection)
+    - [Running the Dashboard](running-the-dashboard)
+    - [Training the ML Model](training-the-ml-model)
+* [Usage](usage)
+* [Data Source](data-source)
+* [Contributing](contributing)
+* [Contact](contact)
 
 ## About the Project
 `CinemaScope` is a comprehensive data analysis and visualization project exploring movie trends from 1990 to 2025. Leveraging data from The Movie Database (TMDB), this project provides insights into genre popularity, revenue evolution, rating patterns, runtime trends, and more. The core of the project is an interactive Streamlit dashboard, complemented by a detailed Exploratory Data Analysis (EDA) notebook and a machine learning model for movie popularity prediction.
