@@ -1,0 +1,80 @@
+/* General container padding */
+.block-container {
+    padding-top: 0 !important;
+    padding-bottom: 3rem;
+}
+
+/* Hide Streamlit anchor link icons for h2, h3, h5 */
+.stMarkdown h2 a,
+.stMarkdown h3 a,
+.stMarkdown h5 a {
+    display: none !important;
+}
+
+/* Style for main section headers (h2) */
+.stMarkdown h2 {
+    margin-top: 1rem;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+/* Styles for KPI cards */
+.kpi-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+/* Styles for individual KPI cards */
+.kpi-card {
+    background-color: rgb(255, 236, 200);
+    padding: 1.5em 0.4em;
+    border-radius: 1rem;
+    text-align: center;
+    min-height: 120px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    box-shadow: 5px 5px 8px rgba(0,0,0, 0.1);
+    flex: 1;
+    min-width: 180px;
+    max-width: calc(20% - 1rem);
+}
+
+/* Styles for KPI values (h3) */
+.kpi-card .kpi-value-h3 {
+    margin: 0;
+    padding: 1rem 0 0.3rem;
+    font-weight: bold;
+    font-size: 2em;
+    color: rgb(135, 88, 0);
+}
+
+/* Styles for KPI labels (h5) */
+.kpi-card .kpi-label-h5 {
+    margin: 0;
+    padding: 0;
+    /* font-size: 1.2em; */
+}
+
+/* Responsive adjustments for KPI cards */
+@media (max-width: 1200px) {
+    .kpi-card {
+        max-width: calc(33.33% - 1rem); /* 3 columns on medium screens */
+    }
+}
+
+@media (max-width: 768px) {
+    .kpi-card {
+        max-width: calc(50% - 1rem); /* 2 columns on tablet screens */
+    }
+}
+
+@media (max-width: 480px) {
+    .kpi-card {
+        max-width: 100%; /* 1 column on mobile screens */
+    }
+}
