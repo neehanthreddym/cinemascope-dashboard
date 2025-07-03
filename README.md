@@ -41,6 +41,8 @@ Trending-Movies-EDA/
 |   |__ dashboard.py               # Streamlit application for the dashboard
 |   |__ data_processing.py         # Script for preprocessing data
 |   |__ train_rf_model.py          # Script for training the ML model
+|__ static/
+|   |__ style.css                  # External CSS file for custom styling
 |__ .env.example                   # Example environment variables file
 |__ .gitignore                     # Files/directories to ignore in Git
 |__ README.md                      # This README file
