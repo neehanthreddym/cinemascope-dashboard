@@ -35,20 +35,26 @@ for key in yearly_data:
         .reset_index()
     )
 
-# Create output folder for plots if it does not exist
-os.makedirs("outputs/plots", exist_ok=True)
+# Function to load CSS from a file
+def load_css(file_name):
+    with open(file_name) as f:
+        st.markdown(f'<style>{f.read()}</style>', unsafe_allow_html=True)
 
 # ---------- Streamlit UI ----------
 st.set_page_config(layout="wide", page_title="CinemaScope Dashboard")
-st.title("🎬 CinemaScope: Evolving Movie Trends (1990–2025)")
+
+# Load external CSS file
+load_css('static/style.css')
+
+st.title("🎬 CinemaScope: Evolving Movie Trends (1990–2025)", anchor=False)
 
 st.markdown("""
 Explore how movie trends have evolved over the years based on TMDB data.
 Use the slider below to filter the analysis by release year range.
 """)
 
-# --- Sidebar Filters ---
-st.header("Filters")
+# --- Filters ---
+st.markdown("<h2>Filters</h2>", unsafe_allow_html=True)
 selected_years = st.slider(
     'Select Release Year Range:',
     min_year, max_year,
@@ -67,50 +73,47 @@ def filter_df(data):
 
 filtered = {k: filter_df(v) for k, v in yearly_data.items()}
 
-# -- Key Performance Indicators (KPIs) --
-st.header("Key Performance Indicators (KPIs)")
-k1, k2, k3, k4, k5 = st.columns(5)
-kpi_bg = "background-color:#e3f2fd; padding: 1.5em 0.5em; border-radius: 0.5em; text-align:center;"
+# --- Key Performance Indicators (KPIs) ---
+st.markdown("<h2>KPIs</h2>", unsafe_allow_html=True)
+total_movies = len(filtered_df)
+total_rev = filtered_df['revenue'].sum() / 1_000_000_000
+avg_rating = filtered_df['vote_average'].mean()
+avg_pop = filtered_df['popularity'].mean()
+min_pop = filtered_df['popularity'].min()
+max_pop = filtered_df['popularity'].max()
+avg_runtime = filtered_df['runtime'].mean()
 
-with k1:
-    st.markdown(
-        f"<div style='{kpi_bg}'><h5>Total Movies</h5><h2>{len(filtered_df):,}</h2></div>", 
-        unsafe_allow_html=True
-    )
+# Construct the HTML for all KPIs within a single flex container
+kpis_html = f"""
+<div class='kpi-container'>
+    <div class='kpi-card'>
+        <h5 class='kpi-label-h5'>Total Movies</h5>
+        <h3 class='kpi-value-h3'>{total_movies:,}</h3>
+    </div>
+    <div class='kpi-card'>
+        <h5 class='kpi-label-h5'>Total Revenue</h5>
+        <h3 class='kpi-value-h3'>${total_rev:,.2f}B</h3>
+    </div>
+    <div class='kpi-card'>
+        <h5 class='kpi-label-h5'>Avg Rating</h5>
+        <h3 class='kpi-value-h3'>{avg_rating:.2f}/10</h3>
+    </div>
+    <div class='kpi-card'>
+        <h5 class='kpi-label-h5'>Avg Popularity</h5>
+        <h3 class='kpi-value-h3'>{avg_pop:.2f}</h3>
+        <p style='font-size:0.9em; margin:0;'>({min_pop:.2f} – {max_pop:.2f})</p>
+    </div>
+    <div class='kpi-card'>
+        <h5 class='kpi-label-h5'>Avg Runtime</h5>
+        <h3 class='kpi-value-h3'>{avg_runtime:.0f}</h3>
+        <p style='font-size:0.9em; margin:0;'>minutes</p>
+    </div>
+</div>
+"""
+st.markdown(kpis_html, unsafe_allow_html=True)
 
-with k2:
-    total_rev = filtered_df['revenue'].sum() / 1_000_000_000
-    st.markdown(
-        f"<div style='{kpi_bg}'><h5>Total Revenue</h5><h2>${total_rev:,.2f}B</h2></div>", 
-        unsafe_allow_html=True
-    )
-
-with k3:
-    avg_rating = filtered_df['vote_average'].mean()
-    st.markdown(
-        f"<div style='{kpi_bg}'><h5>Avg Rating</h5><h2>{avg_rating:.2f}</h2></div>", 
-        unsafe_allow_html=True
-    )
-
-with k4:
-    avg_pop = filtered_df['popularity'].mean()
-    min_pop = filtered_df['popularity'].min()
-    max_pop = filtered_df['popularity'].max()
-    st.markdown(
-        f"<div style='{kpi_bg}'><h5>Avg Popularity</h5><h2>{avg_pop:.2f}</h2><p style='font-size:0.9em;'>Score Range: {min_pop:.2f} – {max_pop:.2f}</p></div>", 
-        unsafe_allow_html=True
-    )
-
-with k5:
-    avg_runtime = filtered_df['runtime'].mean()
-    st.markdown(
-        f"<div style='{kpi_bg}'><h5>Avg Runtime</h5><h2>{avg_runtime:.0f}</h2></div>",
-        unsafe_allow_html=True
-    )
-
-# -- Time Series Plots --
-st.header("Time Trends Analysis")
-
+# --- Time Series Plots ---
+st.markdown("<h2>Time Trends Analysis</h2>", unsafe_allow_html=True)
 plots = {
     'Movie Releases Per Year': ('releases', 'num_releases', 'Number of Releases', None),
     'Average Revenue Per Year': ('revenue', 'avg_revenue', 'Average Revenue (USD)', 'green'),
@@ -139,7 +142,7 @@ for i, (title, (key, ycol, ylabel, color)) in enumerate(plots.items()):
     (col1 if i % 2 == 0 else col2).plotly_chart(fig, use_container_width=True)
 
 # --- Feature Importance Section ---
-st.header("Top Features Driving Movie Popularity")
+st.markdown("<h2>Top Features Driving Movie Popularity</h2>", unsafe_allow_html=True)
 importances = pd.read_csv('data/feature_importances.csv', index_col=0).squeeze("columns")
 importances_df = importances.sort_values(ascending=True).reset_index()
 importances_df.columns = ['Feature', 'Importance']
@@ -160,7 +163,7 @@ st.plotly_chart(fig_feat, use_container_width=True)
 
 
 # --- Top Genres by Decade ---
-st.header("Top Genres by Decade")
+st.markdown("<h2>Top Genres by Decade</h2>", unsafe_allow_html=True)
 genre_year_df = filtered_df.explode('genres')
 genre_year_df['decade'] = (genre_year_df['release_year'] // 10) * 10
 decade_genre_counts = genre_year_df.groupby(['decade', 'genres']).size().reset_index(name='count')
@@ -179,7 +182,7 @@ fig_genre_decade = px.bar(
 st.plotly_chart(fig_genre_decade, use_container_width=True)
 
 # --- Seasonal Release Patterns ---
-st.header("Seasonal Release Patterns")
+st.markdown("<h2>Seasonal Release Patterns</h2>", unsafe_allow_html=True)
 if 'release_month' in filtered_df.columns:
     monthly_counts = filtered_df['release_month'].value_counts().sort_index()
     fig_seasonal = px.line(
@@ -198,11 +201,10 @@ if 'release_month' in filtered_df.columns:
     st.plotly_chart(fig_seasonal, use_container_width=True)
 
 # --- Countrywise Movie Production Map ---
-st.header("Countrywise Movie Production")
+st.markdown("<h2>Countrywise Movie Production</h2>", unsafe_allow_html=True)
 
 #If your country codes are ISO alpha-2 or alpha-3, use them directly.
 #If they are full names, you may need to map them to ISO codes for the map.
-
 def country_to_iso3(country_name):
     try:
         return pycountry.countries.lookup(country_name).alpha_3
@@ -229,7 +231,7 @@ fig_country_map.update_layout(margin={"r":0,"t":40,"l":0,"b":0})
 st.plotly_chart(fig_country_map, use_container_width=True)
 
 # --- Movie Distribution Pie Charts ---
-st.header("Movie Distribution")
+st.markdown("<h2>Movie Distribution</h2>", unsafe_allow_html=True)
 col_genre, col_lang = st.columns(2, gap="large")
 
 with col_genre:
@@ -263,7 +265,7 @@ with col_lang:
     st.plotly_chart(fig_lang_pie, use_container_width=True)
 
 # --- Top 10 Movies by Popularity ---
-st.header("Top 10 Movies by Popularity")
+st.markdown("<h2>Top 10 Movies by Popularity</h2>", unsafe_allow_html=True)
 top_movies = filtered_df.sort_values('popularity', ascending=False).head(10)
 st.dataframe(
     top_movies[['title', 'genres', 'language_name', 'release_year', 'popularity', 'vote_average']].reset_index(drop=True),
@@ -278,7 +280,7 @@ st.markdown(
     """
     <div style='text-align: center; color: gray; font-size: 0.9em;'>
         © 2025 Neehanth Reddy. All rights reserved.<br>
-        <a href='https://github.com/neehanthreddym/cinemascope-dashboard' target='_blank' style='margin-right: 20px;'>GitHub Repo</a>
+        <a href='https://github.com/neehanthreddym/' target='_blank' style='margin-right: 20px;'>GitHub</a>
         <a href='https://www.linkedin.com/in/neehanthreddy/' target='_blank'>LinkedIn</a>
     </div>
     """,
